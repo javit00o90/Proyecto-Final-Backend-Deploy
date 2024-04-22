@@ -1,0 +1,47 @@
+<h1>Upload Form</h1>
+{{#if error}}
+  <div style="color: red;">{{error}}</div>
+{{/if}}
+
+{{#if message}}
+  <div style="color: green;">{{message}}</div>
+{{/if}}
+
+<hr>
+<h2>Documents Status:</h2>
+<p style="color: red;"><strong>You need to relog for the changes to take effect on the documents.</strong></p>
+<p><strong>Avatar: </strong>{{documentStatus.avatar}} </p>
+<p><strong>ID Document: </strong>{{documentStatus.documentsId}} </p>
+<p><strong>Proof of Address: </strong>{{documentStatus.documentsAdress}} </p>
+<p><strong>Proof of Account Status: </strong>{{documentStatus.documentsAccount}} </p>
+
+<form
+  action="/api/users/documents"
+  method="post"
+  enctype="multipart/form-data"
+  id="uploadForm"
+>
+  <label for="avatar">Avatar:</label>
+  <input type="file" name="avatar" id="avatar" accept="image/jpeg, image/png, image/gif, image/jpg" /><br />
+
+  <label for="products">Products:</label>
+  <input type="file" name="products" id="products" accept="image/jpeg, image/png, image/gif, image/jpg" multiple /><br />
+
+  <label for="id">ID:</label>
+  <input type="file" name="documentsId" id="id" accept="application/pdf, text/plain, application/msword" /><br />
+
+  <label for="proofOfAddress">Proof of Address:</label>
+  <input type="file" name="documentsAdress" id="proofOfAddress" accept="application/pdf, text/plain, application/msword" /><br />
+
+  <label for="proofOfAccountStatus">Proof of Account Status:</label>
+  <input type="file" name="documentsAccount" id="proofOfAccountStatus" accept="application/pdf, text/plain, application/msword" /><br />
+  <input
+    type="text"
+    id="userId"
+    name="userId"
+    value="{{session.user._id}}"
+    hidden
+  />
+  <input type="submit" value="Upload" />
+</form>
+<script src="/js/uploadScripts.js"></script>

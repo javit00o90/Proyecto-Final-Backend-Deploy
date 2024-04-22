@@ -1,0 +1,218 @@
+securitySchemes:
+  cookieAuth:
+    type: apiKey
+    in: cookie
+    name: ecommerceJaviCookie
+    description: Enter access token from cookie
+tags:
+  - name: Carts
+    description: Operations related to carts
+paths:
+  /api/carts:
+    get:
+      summary: Get all carts
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: A list of carts
+        '500':
+          description: Error fetching carts
+    post:
+      summary: Create a new cart
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: Cart created successfully
+        '500':
+          description: Error creating cart
+  /api/carts/{cid}:
+    get:
+      summary: Get a cart by ID
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart to retrieve
+      responses:
+        '200':
+          description: Cart retrieved successfully
+        '400':
+          description: Invalid cart ID
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a cart by ID
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart to update
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  description: The ID of the product
+                quantity:
+                  type: integer
+                  description: The quantity of the product to add/update
+                  default: 1
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Cart updated successfully
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a cart by ID
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart to delete
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Cart deleted successfully
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Add a product to a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            description: The ID of the product to add
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Product added to cart successfully
+        '400':
+          description: You cannot add your own product to your cart
+        '404':
+          description: Cart/Product not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Remove a product from a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            description: The ID of the product to remove
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Product removed from cart successfully
+        '404':
+          description: Cart/Product not found
+        '500':
+          description: Internal server error
+  /api/carts/{cid}/products/{pid}:
+    put:
+      summary: Update quantity of a product in a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            description: The ID of the product to update
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              quantity:
+                type: integer
+                description: The new quantity of the product in the cart
+                default: 1
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Product quantity updated successfully
+        '404':
+          description: Cart/Product not found
+        '500':
+          description: Internal server error
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Purchase a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: The ID of the cart to purchase
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Cart purchased successfully
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error

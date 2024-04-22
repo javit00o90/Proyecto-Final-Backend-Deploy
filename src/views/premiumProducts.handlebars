@@ -1,0 +1,52 @@
+<h2>Premium Products</h2>
+<h3>Your Products</h3>
+
+
+<div id="premiumProducts">
+    {{#each productsData}}
+    <div class="productCard" id="product-{{this._id}}">
+        <h2>{{this.title}}</h2>
+        <p>Status: {{this.status}}</p>
+        <p>Price: ${{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
+        <p>{{this.description}}</p>
+        <p>{{this.category}}</p>
+        {{#if this.status}}
+        <button id="deleteBtn" class="btn btn-danger" data-product-id="{{this._id}}">Delete</button>
+        {{else}}
+        <button id="restoreBtn" class="btn btn-success" data-product-id="{{this._id}}">Restore</button>
+        {{/if}}
+    </div>
+    {{/each}}
+</div>
+<hr>
+
+<h2>Add product</h2>
+    <form id="productForm" action="/api/products" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" step="0.01" required>
+
+    <label for="code">Code:</label>
+    <input type="text" id="code" name="code" required>
+
+    <label for="stock">Stock:</label>
+    <input type="number" id="stock" name="stock" required>
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" required>
+
+    <label for="thumbnails">Thumbnails (comma-separated):</label>
+    <input type="text" id="thumbnails" name="thumbnails">                   
+    <input type="text" id="owner" name="owner" value="{{session.user.email}}" hidden>                   
+
+    <button type="submit" class="btn btn-success">Add product</button>
+    </form>
+
+
+<script src="/js/premiumProductsScript.js"></script>

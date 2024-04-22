@@ -1,0 +1,22 @@
+<h2>ROLE CHANGE:</h2>
+<hr>
+
+<h2>Documents Status:</h2>
+<p style="color: red;"><strong>You need to relog for the changes to take effect on the documents.</strong></p>
+<p><strong>Avatar: </strong>{{documentStatus.avatar}} </p>
+<p><strong>ID Document: </strong>{{documentStatus.documentsId}} </p>
+<p><strong>Proof of Address: </strong>{{documentStatus.documentsAdress}} </p>
+<p><strong>Proof of Account Status: </strong>{{documentStatus.documentsAccount}} </p>
+<p class="ticket" id="userRole" hidden style="color: red; font-weight: bold;"></p>
+<hr>
+{{#if (eq session.user.role "user")}}
+<button  id="changeRole" class="btn btn-primary" data-user-id="{{session.user._id}}">Change to Premium</button>
+{{/if}}
+
+{{#if (eq session.user.role "premium")}}
+<button  id="changeRole" class="btn btn-primary" data-user-id="{{session.user._id}}">Change to User</button>
+{{/if}}
+
+
+
+<script src="/js/premiumUserScript.js"></script>

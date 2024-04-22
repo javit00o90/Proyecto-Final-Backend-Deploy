@@ -1,0 +1,17 @@
+<h1>Tickets</h1>
+<hr>
+{{#if ticketsData.length}}
+    {{#each ticketsData}}
+  <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+  <div class="card-header">Ticket</div>
+  <div class="card-body">
+    <h5 class="card-title">Code: {{this.code}}</h5>
+    <h5 class="card-title">Amount: ${{this.amount}}</h5>
+    <p class="card-text">Purchaser: {{this.purchaser}}</p>
+    <p class="card-text">Purchase datetime: {{this.purchase_datetime}}</p>
+  </div>
+</div>
+    {{/each}}
+{{else}}
+<p>You dont have tickets!</p>
+{{/if}}
